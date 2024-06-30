@@ -1,3 +1,6 @@
+let computerScore = 0,
+  humanScore = 0;
+
 function getComputerChoice() {
   // get random number between 0 and 2 (both inclusive)
   let randomNum = Math.floor(Math.random() * 3);
