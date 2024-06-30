@@ -12,4 +12,19 @@ function getComputerChoice() {
   }
 }
 
-getComputerChoice()
+getComputerChoice();
+
+function getHumanChoice() {
+  // ask user/human for their choice
+  let humanChoice = prompt("Enter either Rock, Paper or Scissors");
+
+  /* if human choice is valid according to game, return human's choice
+    or else notify human that their input is invalid */
+  return humanChoice.toUpperCase() === "ROCK" ||
+    humanChoice.toUpperCase() === "PAPER" ||
+    humanChoice.toUpperCase() === "SCISSORS"
+    ? humanChoice
+    : alert("Sorry, only Rock, Paper or Scissors is accepted in this game");
+}
+
+getHumanChoice();
