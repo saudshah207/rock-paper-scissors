@@ -2,7 +2,7 @@ let computerScore = 0,
   humanScore = 0;
 
 function getComputerChoice() {
-  // get random number between 0 and 2 (both inclusive)
+  // Get random number between 0 and 2 (both inclusive)
   let randomNum = Math.floor(Math.random() * 3);
 
   // return computer choice depending on randomNum
@@ -16,16 +16,21 @@ function getComputerChoice() {
 }
 
 function getHumanChoice() {
-  // ask user/human for their choice
+  // Ask user/human for their choice
   let humanChoice = prompt("Enter either Rock, Paper or Scissors");
 
-  /* if human choice is valid according to game, return human's choice
+  // Only return human's choice if it's not null or empty string
+  if (humanChoice) {
+    /* If human choice is valid according to game, return human's choice
     or else notify human that their input is invalid */
-  return humanChoice.toUpperCase() === "ROCK" ||
-    humanChoice.toUpperCase() === "PAPER" ||
-    humanChoice.toUpperCase() === "SCISSORS"
-    ? humanChoice
-    : alert("Sorry, only Rock, Paper or Scissors is accepted in this game");
+    return humanChoice.toUpperCase() === "ROCK" ||
+      humanChoice.toUpperCase() === "PAPER" ||
+      humanChoice.toUpperCase() === "SCISSORS"
+      ? humanChoice
+      : alert("Sorry, only Rock, Paper or Scissors is accepted in this game");
+  } else {
+    alert(":(");
+  }
 }
 
 function playRound(computerChoice, humanChoice) {
@@ -40,6 +45,11 @@ function playRound(computerChoice, humanChoice) {
     Paper === Paper
     
   */
+
+  // Abort if humanChoice contains undefined
+  if (!humanChoice) {
+    return;
+  }
 
   // Out of Rock & Scissors, the player with Rock wins
   if (
