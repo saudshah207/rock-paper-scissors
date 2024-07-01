@@ -21,11 +21,16 @@ function getHumanChoice() {
 
   // Only return human's choice if it's not null or empty string
   if (humanChoice) {
+    // Standardize human input so that only first character is capital
+    humanChoice =
+      humanChoice.slice(0, 1).toUpperCase() +
+      humanChoice.slice(1).toLowerCase();
+
     /* If human choice is valid according to game, return human's choice
     or else notify human that their input is invalid */
-    return humanChoice.toUpperCase() === "ROCK" ||
-      humanChoice.toUpperCase() === "PAPER" ||
-      humanChoice.toUpperCase() === "SCISSORS"
+    return humanChoice === "Rock" ||
+      humanChoice === "Paper" ||
+      humanChoice === "Scissors"
       ? humanChoice
       : alert("Sorry, only Rock, Paper or Scissors is accepted in this game");
   } else {
@@ -53,23 +58,21 @@ function playRound(computerChoice, humanChoice) {
 
   // Out of Rock & Scissors, the player with Rock wins
   if (
-    (computerChoice.toUpperCase() === "ROCK" ||
-      humanChoice.toUpperCase() === "ROCK") &&
-    (computerChoice.toUpperCase() === "SCISSORS" ||
-      humanChoice.toUpperCase() === "SCISSORS")
+    (computerChoice === "Rock" || humanChoice === "Rock") &&
+    (computerChoice === "Scissors" || humanChoice === "Scissors")
   ) {
-    if (humanChoice.toUpperCase() === "ROCK") {
+    if (humanChoice === "Rock") {
       console.log(
         `You chose ${humanChoice} | Computer chose ${computerChoice}`
       );
-      console.log("You win! Rock beats Scissors");
+      console.log(`You win! ${humanChoice} beats ${computerChoice}`);
       humanScore++;
       console.log(`You : ${humanScore} | Computer : ${computerScore}`);
     } else {
       console.log(
         `You chose ${humanChoice} | Computer chose ${computerChoice}`
       );
-      console.log("You lose! Rock beats Scissors");
+      console.log(`You lose! ${computerChoice} beats ${humanChoice}`);
       computerScore++;
       console.log(`You : ${humanScore} | Computer : ${computerScore}`);
     }
@@ -77,23 +80,21 @@ function playRound(computerChoice, humanChoice) {
 
   // Out of Scissors & Paper, the player with Scissors wins
   else if (
-    (computerChoice.toUpperCase() === "SCISSORS" ||
-      humanChoice.toUpperCase() === "SCISSORS") &&
-    (computerChoice.toUpperCase() === "PAPER" ||
-      humanChoice.toUpperCase() === "PAPER")
+    (computerChoice === "Scissors" || humanChoice === "Scissors") &&
+    (computerChoice === "Paper" || humanChoice === "Paper")
   ) {
-    if (humanChoice.toUpperCase() === "SCISSORS") {
+    if (humanChoice === "Scissors") {
       console.log(
         `You chose ${humanChoice} | Computer chose ${computerChoice}`
       );
-      console.log("You win! Scissors beat Paper");
+      console.log(`You win! ${humanChoice} beat ${computerChoice}`);
       humanScore++;
       console.log(`You : ${humanScore} | Computer : ${computerScore}`);
     } else {
       console.log(
         `You chose ${humanChoice} | Computer chose ${computerChoice}`
       );
-      console.log("You lose! Scissors beat Paper");
+      console.log(`You lose! ${computerChoice} beat ${humanChoice}`);
       computerScore++;
       console.log(`You : ${humanScore} | Computer : ${computerScore}`);
     }
@@ -101,23 +102,21 @@ function playRound(computerChoice, humanChoice) {
 
   // Out of Paper & Rock, the player with Paper wins
   else if (
-    (computerChoice.toUpperCase() === "PAPER" ||
-      humanChoice.toUpperCase() === "PAPER") &&
-    (computerChoice.toUpperCase() === "ROCK" ||
-      humanChoice.toUpperCase() === "ROCK")
+    (computerChoice === "Paper" || humanChoice === "Paper") &&
+    (computerChoice === "Rock" || humanChoice === "Rock")
   ) {
-    if (humanChoice.toUpperCase() === "PAPER") {
+    if (humanChoice === "Paper") {
       console.log(
         `You chose ${humanChoice} | Computer chose ${computerChoice}`
       );
-      console.log("You win! Paper beats Rock");
+      console.log(`You win! ${humanChoice} beats ${computerChoice}`);
       humanScore++;
       console.log(`You : ${humanScore} | Computer : ${computerScore}`);
     } else {
       console.log(
         `You chose ${humanChoice} | Computer chose ${computerChoice}`
       );
-      console.log("You lose! Paper beats Rock");
+      console.log(`You lose! ${computerChoice} beats ${humanChoice}`);
       computerScore++;
       console.log(`You : ${humanScore} | Computer : ${computerScore}`);
     }
