@@ -25,13 +25,27 @@ function getHumanChoice(currentRound) {
       humanChoice.slice(0, 1).toUpperCase() +
       humanChoice.slice(1).toLowerCase();
 
-    /* If human choice is valid according to game, return human's choice
-    or else notify human that their input is invalid */
-    return humanChoice === "Rock" ||
-      humanChoice === "Paper" ||
-      humanChoice === "Scissors"
-      ? humanChoice
-      : alert("Sorry, only Rock, Paper or Scissors is accepted in this game");
+    /* Keep asking user for valid input as long as input prompt is not 
+    cancelled, so if user has mistakenly typed invalid input, they can 
+    type again */
+    while (
+      humanChoice !== "Rock" &&
+      humanChoice !== "Paper" &&
+      humanChoice !== "Scissors" &&
+      humanChoice !== null
+    ) {
+      humanChoice = prompt(
+        `Round ${currentRound} :\nSorry, only Rock, Paper or Scissors is accepted in this game`
+      );
+      if (humanChoice === null) {
+        alert(":(");
+      } else {
+        humanChoice =
+          humanChoice.slice(0, 1).toUpperCase() +
+          humanChoice.slice(1).toLowerCase();
+      }
+    }
+    return humanChoice;
   } else {
     alert(":(");
   }
@@ -54,7 +68,7 @@ function playGame() {
         } else if (computerScore === humanScore) {
           console.log("This game is a tie! 🏳");
         } else {
-          console.log("Human wins this game! 👤🎊");
+          console.log("You win this game! 👤🎊");
         }
       }
     } else {
@@ -75,14 +89,17 @@ function playGame() {
       
     */
 
-    // Abort if humanChoice contains undefined
+    // Abort if humanChoice contains undefined or null
     if (!humanChoice) {
       continueGame = false;
       return continueGame;
     }
 
     // Declare Round number
-    console.log(`%cRound ${gameRound} : `, "font-weight: bold; font-size: 13px");
+    console.log(
+      `%cRound ${gameRound} : `,
+      "font-weight: bold; font-size: 13px"
+    );
 
     // Out of Rock & Scissors, the player with Rock wins
     if (
