@@ -72,6 +72,18 @@ function playGame() {
         }
       }
     } else {
+      /* If user cancels before Round 5, 
+      declare winner upto number of Rounds played, 
+      only if current Round is not first */
+      if (gameRound > 2) {
+        if (computerScore > humanScore) {
+          console.log(`Computer wins upto Round ${gameRound - 2}! 🖥🎉`);
+        } else if (computerScore === humanScore) {
+          console.log(`It's a tie upto Round ${gameRound - 2}! 🏳`);
+        } else {
+          console.log(`You win upto Round ${gameRound - 2}! 👤🎊`);
+        }
+      }
       break;
     }
   }
