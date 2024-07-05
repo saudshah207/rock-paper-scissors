@@ -72,9 +72,9 @@ function playGame() {
         }
       }
     } else {
-      /* If user cancels before Round 5, 
-      declare winner upto number of Rounds played, 
-      only if current Round is not first */
+      /* If user cancels before Round 5, declare 
+      winner upto number of Rounds played, only 
+      if current Round is not first */
       if (gameRound > 2) {
         if (computerScore > humanScore) {
           console.log(`Computer wins upto Round ${gameRound - 2}! 🖥🎉`);
@@ -190,4 +190,33 @@ function playGame() {
   }
 }
 
-playGame();
+function startGame() {
+  playGame();
+}
+
+function removeTextAndAddButton(event) {
+  let playGameButton = document.createElement("button");
+
+  /* Remove h1 text and add Play Game 
+  Button, if Ctrl + Shift + j is pressed */
+  if (event.ctrlKey && event.shiftKey && event.code === "KeyJ") {
+    console.log("Keep the console open for rest of the game.");
+    let text = document.querySelector("h1");
+
+    // Add Play Game button after & adjacent to text
+    text.insertAdjacentElement("afterend", playGameButton).textContent =
+      "Play Game";
+
+    // Remove text
+    document.body.removeChild(text);
+
+    // Stop listening for keydown events
+    window.removeEventListener("keydown", removeTextAndAddButton);
+  }
+
+  // Listen for click events on Play Game Button
+  playGameButton.addEventListener("click", startGame);
+}
+
+// Listen for keydown events
+window.addEventListener("keydown", removeTextAndAddButton);
