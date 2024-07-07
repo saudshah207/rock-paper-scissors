@@ -13,12 +13,11 @@ function getComputerChoice() {
 }
 
 function getHumanChoice(currentRound) {
-  // Ask user/human for their choice
   let humanChoice = prompt(
     `Round ${currentRound} :\nEnter either Rock, Paper or Scissors`
   );
 
-  // Only proceed if human's choice is not null
+  // Only proceed if human doesn't cancel prompt
   if (humanChoice !== null) {
     // Standardize human input so that only first character is capital
     humanChoice =
@@ -26,8 +25,8 @@ function getHumanChoice(currentRound) {
       humanChoice.slice(1).toLowerCase();
 
     /* Keep asking user for valid input as long as input prompt is not 
-    cancelled, so if user has mistakenly typed invalid input, they can 
-    type again */
+    cancelled or valid input is not given, so if user has mistakenly typed 
+    invalid input, they can type again */
     while (
       humanChoice !== "Rock" &&
       humanChoice !== "Paper" &&
@@ -59,7 +58,6 @@ function playGame() {
 
   // Each game should consist of 5 rounds
   for (gameRound = 1; gameRound <= 5; gameRound++) {
-    // If user cancels input prompt, stop
     if (continueGame) {
       playRound(getComputerChoice(), getHumanChoice(gameRound));
       if (gameRound === 5) {
@@ -107,7 +105,6 @@ function playGame() {
       return continueGame;
     }
 
-    // Declare Round number
     console.log(
       `%cRound ${gameRound} : `,
       "font-weight: bold; font-size: 13px"
@@ -197,26 +194,19 @@ function startGame() {
 function removeTextAndAddButton(event) {
   let playGameButton = document.createElement("button");
 
-  /* Remove h1 text and add Play Game 
-  Button, if Ctrl + Shift + j is pressed */
   if (event.ctrlKey && event.shiftKey && event.code === "KeyJ") {
     console.log("Keep the console open for rest of the game.");
     let text = document.querySelector("h1");
 
-    // Add Play Game button after & adjacent to text
     text.insertAdjacentElement("afterend", playGameButton).textContent =
       "Play Game";
 
-    // Remove text
     document.body.removeChild(text);
 
-    // Stop listening for keydown events
     window.removeEventListener("keydown", removeTextAndAddButton);
   }
 
-  // Listen for click events on Play Game Button
   playGameButton.addEventListener("click", startGame);
 }
 
-// Listen for keydown events
 window.addEventListener("keydown", removeTextAndAddButton);
