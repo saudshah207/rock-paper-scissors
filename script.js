@@ -181,14 +181,10 @@ function playGame() {
   }
 }
 
-function startGame() {
-  playGame();
-}
-
 function removeTextAndAddButton(event) {
   let playGameButton = document.createElement("button");
 
-  if (event.ctrlKey && event.shiftKey && event.code === "KeyJ") {
+  if (event.ctrlKey && event.shiftKey && event.key === "J") {
     console.log("Keep the console open for rest of the game.");
     let text = document.querySelector("h1");
 
@@ -200,7 +196,7 @@ function removeTextAndAddButton(event) {
     window.removeEventListener("keydown", removeTextAndAddButton);
   }
 
-  playGameButton.addEventListener("click", startGame);
+  playGameButton.addEventListener("click", playGame);
 }
 
 window.addEventListener("keydown", removeTextAndAddButton);
