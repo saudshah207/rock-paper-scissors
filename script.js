@@ -36,17 +36,11 @@ function getHumanChoice(currentRound) {
       humanChoice = prompt(
         `Round ${currentRound} :\nSorry, only Rock, Paper or Scissors is accepted in this game`
       );
-      if (humanChoice === null) {
-        alert(":(");
-      } else {
-        humanChoice =
-          humanChoice.slice(0, 1).toUpperCase() +
-          humanChoice.slice(1).toLowerCase();
-      }
+      humanChoice = (humanChoice === null) ? humanChoice
+                  : humanChoice.slice(0, 1).toUpperCase() +
+                    humanChoice.slice(1).toLowerCase();
     }
-    return humanChoice;
-  } else {
-    alert(":(");
+    return humanChoice
   }
 }
 
