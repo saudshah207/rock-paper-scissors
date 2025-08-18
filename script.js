@@ -107,22 +107,18 @@ function playGame() {
       "font-weight: bold; font-size: 13px"
     );
 
+    console.log(`You chose ${humanChoice} | Computer chose ${computerChoice}`);
+
     // Out of Rock & Scissors, the player with Rock wins
     if (
       (computerChoice === "Rock" || humanChoice === "Rock") &&
       (computerChoice === "Scissors" || humanChoice === "Scissors")
     ) {
       if (humanChoice === "Rock") {
-        console.log(
-          `You chose ${humanChoice} | Computer chose ${computerChoice}`
-        );
         console.log(`You win! ${humanChoice} beats ${computerChoice}`);
         humanScore++;
         console.log(`You : ${humanScore} | Computer : ${computerScore}`);
       } else {
-        console.log(
-          `You chose ${humanChoice} | Computer chose ${computerChoice}`
-        );
         console.log(`You lose! ${computerChoice} beats ${humanChoice}`);
         computerScore++;
         console.log(`You : ${humanScore} | Computer : ${computerScore}`);
@@ -135,16 +131,10 @@ function playGame() {
       (computerChoice === "Paper" || humanChoice === "Paper")
     ) {
       if (humanChoice === "Scissors") {
-        console.log(
-          `You chose ${humanChoice} | Computer chose ${computerChoice}`
-        );
         console.log(`You win! ${humanChoice} beat ${computerChoice}`);
         humanScore++;
         console.log(`You : ${humanScore} | Computer : ${computerScore}`);
       } else {
-        console.log(
-          `You chose ${humanChoice} | Computer chose ${computerChoice}`
-        );
         console.log(`You lose! ${computerChoice} beat ${humanChoice}`);
         computerScore++;
         console.log(`You : ${humanScore} | Computer : ${computerScore}`);
@@ -157,16 +147,10 @@ function playGame() {
       (computerChoice === "Rock" || humanChoice === "Rock")
     ) {
       if (humanChoice === "Paper") {
-        console.log(
-          `You chose ${humanChoice} | Computer chose ${computerChoice}`
-        );
         console.log(`You win! ${humanChoice} beats ${computerChoice}`);
         humanScore++;
         console.log(`You : ${humanScore} | Computer : ${computerScore}`);
       } else {
-        console.log(
-          `You chose ${humanChoice} | Computer chose ${computerChoice}`
-        );
         console.log(`You lose! ${computerChoice} beats ${humanChoice}`);
         computerScore++;
         console.log(`You : ${humanScore} | Computer : ${computerScore}`);
@@ -175,9 +159,6 @@ function playGame() {
 
     // Otherwise, the players have chosen same object & it's a tie
     else {
-      console.log(
-        `You chose ${humanChoice} | Computer chose ${computerChoice}`
-      );
       console.log("It's a tie!");
       console.log(`You : ${humanScore} | Computer : ${computerScore}`);
     }
