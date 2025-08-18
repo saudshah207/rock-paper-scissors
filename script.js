@@ -36,11 +36,13 @@ function getHumanChoice(currentRound) {
       humanChoice = prompt(
         `Round ${currentRound} :\nSorry, only Rock, Paper or Scissors is accepted in this game`
       );
-      humanChoice = (humanChoice === null) ? humanChoice
-                  : humanChoice.slice(0, 1).toUpperCase() +
-                    humanChoice.slice(1).toLowerCase();
+      humanChoice =
+        humanChoice === null
+          ? humanChoice
+          : humanChoice.slice(0, 1).toUpperCase() +
+            humanChoice.slice(1).toLowerCase();
     }
-    return humanChoice
+    return humanChoice;
   }
 }
 
@@ -52,8 +54,9 @@ function playGame() {
 
   // Each game should consist of 5 rounds
   for (gameRound = 1; gameRound <= 5; gameRound++) {
+    playRound(getComputerChoice(), getHumanChoice(gameRound));
+
     if (continueGame) {
-      playRound(getComputerChoice(), getHumanChoice(gameRound));
       if (gameRound === 5) {
         if (computerScore > humanScore) {
           console.log("Computer wins this game! 🖥🎉");
@@ -67,13 +70,13 @@ function playGame() {
       /* If user cancels before Round 5, declare 
       winner upto number of Rounds played, only 
       if current Round is not first */
-      if (gameRound > 2) {
+      if (gameRound > 1) {
         if (computerScore > humanScore) {
-          console.log(`Computer wins upto Round ${gameRound - 2}! 🖥🎉`);
+          console.log(`Computer wins upto Round ${gameRound - 1}! 🖥🎉`);
         } else if (computerScore === humanScore) {
-          console.log(`It's a tie upto Round ${gameRound - 2}! 🏳`);
+          console.log(`It's a tie upto Round ${gameRound - 1}! 🏳`);
         } else {
-          console.log(`You win upto Round ${gameRound - 2}! 👤🎊`);
+          console.log(`You win upto Round ${gameRound - 1}! 👤🎊`);
         }
       }
       break;
@@ -96,7 +99,7 @@ function playGame() {
     // Abort if humanChoice contains undefined or null
     if (!humanChoice) {
       continueGame = false;
-      return continueGame;
+      return;
     }
 
     console.log(
