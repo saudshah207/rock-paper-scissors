@@ -3,24 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
     <title>Rock Paper Scissors</title>
   </head>
-  <body
-    style="
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      margin: 0;
-      gap: 1rem;
-    "
-  >
-    <h1>Press Ctrl + Shift + J to see the game played</h1>
-    <div class="choice-selection-buttons">
-      <button data-choice="Rock" disabled>Rock</button>
-      <button data-choice="Paper" disabled>Paper</button>
-      <button data-choice="Scissors" disabled>Scissors</button>
+  <body class="flex flex-center flex-column standard-gap">
+    <h1>Rock Paper Scissors</h1>
+    <p>Player to score 5 points first wins</p>
+    <div class="results">
+      <h2 class="round">Round <span class="round-no">0</span></h2>
+      <div class="choice flex standard-gap">
+        <p>You chose <span class="human">null</span></p>
+        <span> | </span>
+        <p>Computer chose <span class="computer">null</span></p>
+      </div>
+      <p class="round-result"></p>
+      <div class="score flex standard-gap">
+        <p>You : <span class="human">0</span></p>
+        <span> | </span>
+        <p>Computer : <span class="computer">0</span></p>
+      </div>
+      <p class="game-result"></p>
+    </div>
+    <div class="choice-selection-buttons text-align-center">
+      <p>Play by making your choice below</p>
+      <button data-choice="Rock">Rock</button>
+      <button data-choice="Paper">Paper</button>
+      <button data-choice="Scissors">Scissors</button>
     </div>
     <script src="script.js"></script>
   </body>

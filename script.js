@@ -1,13 +1,28 @@
 function setUpRockPaperScissors() {
-  function playGame() {
-    let computerScore = 0,
-      humanScore = 0,
-      gameRound = 0,
-      continueGame = true;
+  function playGame(choiceSelectionButtonsWrapper, resultsWrapper) {
+    let computerScore, humanScore, gameRound, continueGame;
 
-    const choiceSelectionButtonsWrapper = document.querySelector(
-      "div.choice-selection-buttons"
-    );
+    const roundNoElement = resultsWrapper.querySelector(".round-no"),
+      choiceElements = {
+        human: resultsWrapper.querySelector(".choice .human"),
+        computer: resultsWrapper.querySelector(".choice .computer"),
+      },
+      roundResultElement = resultsWrapper.querySelector(".round-result"),
+      scoreElements = {
+        human: resultsWrapper.querySelector(".score .human"),
+        computer: resultsWrapper.querySelector(".score .computer"),
+      },
+      gameResultElement = resultsWrapper.querySelector(".game-result");
+
+    function resetGameVarsAndResult() {
+      gameRound = 0;
+      continueGame = true;
+      computerScore = 0;
+      humanScore = 0;
+      gameResultElement.textContent = "";
+    }
+
+    resetGameVarsAndResult();
 
     choiceSelectionButtonsWrapper.addEventListener(
       "click",
@@ -18,10 +33,7 @@ function setUpRockPaperScissors() {
       if (!event.target.matches("button")) return;
 
       if (hasMaxScoreReached()) {
-        gameRound = 0;
-        continueGame = true;
-        computerScore = 0;
-        humanScore = 0;
+        resetGameVarsAndResult();
       }
 
       gameRound++;
@@ -54,37 +66,20 @@ function setUpRockPaperScissors() {
       return clickTarget.dataset.choice;
     }
 
-    function announceWinner(humanScore, computerScore) {
-      if (computerScore > humanScore) {
-        console.log("Computer wins this game! 🖥🎉");
-      } else if (computerScore === humanScore) {
-        console.log("This game is a tie! 🏳");
-      } else {
-        console.log("You win this game! 👤🎊");
-      }
-    }
-
     function playRound(computerChoice, humanChoice) {
       /* Following are only possible pairs in a
-      game of Rock, Paper and Scissors :
-  
-      Rock > Scissors
-      Scissors > Paper
-      Paper > Rock
-      Rock === Rock
-      Scissors === Scissors
-      Paper === Paper
-      
-    */
+        game of Rock, Paper and Scissors :
+    
+        Rock > Scissors
+        Scissors > Paper
+        Paper > Rock
+        Rock === Rock
+        Scissors === Scissors
+        Paper === Paper
+        
+      */
 
-      console.log(
-        `%cRound ${gameRound} : `,
-        "font-weight: bold; font-size: 13px"
-      );
-
-      console.log(
-        `You chose ${humanChoice} | Computer chose ${computerChoice}`
-      );
+      let roundResult;
 
       // Out of Rock & Scissors, the player with Rock wins
       if (
@@ -92,10 +87,10 @@ function setUpRockPaperScissors() {
         (computerChoice === "Scissors" || humanChoice === "Scissors")
       ) {
         if (humanChoice === "Rock") {
-          console.log(`You win! ${humanChoice} beats ${computerChoice}`);
+          roundResult = `You win! ${humanChoice} beats ${computerChoice}`;
           humanScore++;
         } else {
-          console.log(`You lose! ${computerChoice} beats ${humanChoice}`);
+          roundResult = `You lose! ${computerChoice} beats ${humanChoice}`;
           computerScore++;
         }
       }
@@ -106,10 +101,10 @@ function setUpRockPaperScissors() {
         (computerChoice === "Paper" || humanChoice === "Paper")
       ) {
         if (humanChoice === "Scissors") {
-          console.log(`You win! ${humanChoice} beat ${computerChoice}`);
+          roundResult = `You win! ${humanChoice} beat ${computerChoice}`;
           humanScore++;
         } else {
-          console.log(`You lose! ${computerChoice} beat ${humanChoice}`);
+          roundResult = `You lose! ${computerChoice} beat ${humanChoice}`;
           computerScore++;
         }
       }
@@ -120,55 +115,53 @@ function setUpRockPaperScissors() {
         (computerChoice === "Rock" || humanChoice === "Rock")
       ) {
         if (humanChoice === "Paper") {
-          console.log(`You win! ${humanChoice} beats ${computerChoice}`);
+          roundResult = `You win! ${humanChoice} beats ${computerChoice}`;
           humanScore++;
         } else {
-          console.log(`You lose! ${computerChoice} beats ${humanChoice}`);
+          roundResult = `You lose! ${computerChoice} beats ${humanChoice}`;
           computerScore++;
         }
       }
 
       // Otherwise, the players have chosen same object & it's a tie
       else {
-        console.log("It's a tie!");
+        roundResult = "It's a tie!";
       }
 
-      console.log(`You : ${humanScore} | Computer : ${computerScore}`);
+      setResultsTextContent();
 
       if (hasMaxScoreReached()) {
         continueGame = false;
       }
+
+      function setResultsTextContent() {
+        roundNoElement.textContent = gameRound;
+
+        choiceElements.human.textContent = humanChoice;
+        choiceElements.computer.textContent = computerChoice;
+
+        roundResultElement.textContent = roundResult;
+
+        scoreElements.human.textContent = humanScore;
+        scoreElements.computer.textContent = computerScore;
+      }
+    }
+
+    function announceWinner(humanScore, computerScore) {
+      if (computerScore > humanScore) {
+        gameResultElement.textContent = "Computer wins this game! 🖥🎉";
+      } else if (computerScore === humanScore) {
+        gameResultElement.textContent = "This game is a tie! 🏳";
+      } else {
+        gameResultElement.textContent = "You win this game! 👤🎊";
+      }
     }
   }
 
-  function prepareUiAndPlayGame(event) {
-    if (event.ctrlKey && event.shiftKey && event.key === "J") {
-      console.log(
-        "%cKeep the console open for rest of the game.",
-        "font-weight: bold; font-size: 16px"
-      );
-
-      let text = document.querySelector("h1");
-
-      text.textContent =
-        "Use the buttons below to start playing. Player to get to 5 points first wins.";
-
-      window.removeEventListener("keydown", prepareUiAndPlayGame);
-
-      enableChoiceSelectionButtons(
-        document.querySelectorAll(".choice-selection-buttons > button")
-      );
-
-      playGame();
-    }
-
-    function enableChoiceSelectionButtons(choiceSelectionButtons) {
-      for (const button of choiceSelectionButtons)
-        button.removeAttribute("disabled");
-    }
-  }
-
-  window.addEventListener("keydown", prepareUiAndPlayGame);
+  playGame(
+    document.querySelector("div.choice-selection-buttons"),
+    document.querySelector("div.results")
+  );
 }
 
 setUpRockPaperScissors();
